@@ -4,13 +4,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/msaf1980/g2g"
+	"github.com/msaf1980/g2g/pkg/expvars"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestTimer(t *testing.T) {
 	inputs := []float64{1.0, 3.0, 2.0}
-	timer := NewTimer("test")
+	timer := NewTimer("test timer")
 
 	prev := timer.last
 
@@ -31,24 +31,24 @@ func TestTimer(t *testing.T) {
 	for _, got := range results {
 		switch got.Name {
 		case "min":
-			assert.Equal(t, g2g.MValue{Name: "min", V: "1"}, got)
+			assert.Equal(t, expvars.MValue{Name: "min", V: "1"}, got)
 
 		case "max":
-			assert.Equal(t, g2g.MValue{Name: "max", V: "3"}, got)
+			assert.Equal(t, expvars.MValue{Name: "max", V: "3"}, got)
 		case "median":
-			assert.Equal(t, g2g.MValue{Name: "median", V: "1.5"}, got)
+			assert.Equal(t, expvars.MValue{Name: "median", V: "1.5"}, got)
 		case "p90":
-			assert.Equal(t, g2g.MValue{Name: "p90", V: "2.5"}, got)
+			assert.Equal(t, expvars.MValue{Name: "p90", V: "2.5"}, got)
 		case "p95":
-			assert.Equal(t, g2g.MValue{Name: "p95", V: "2.5"}, got)
+			assert.Equal(t, expvars.MValue{Name: "p95", V: "2.5"}, got)
 		case "p99":
-			assert.Equal(t, g2g.MValue{Name: "p99", V: "2.5"}, got)
+			assert.Equal(t, expvars.MValue{Name: "p99", V: "2.5"}, got)
 		case "sum":
-			assert.Equal(t, g2g.MValue{Name: "sum", V: "6"}, got)
+			assert.Equal(t, expvars.MValue{Name: "sum", V: "6"}, got)
 		case "count":
-			assert.Equal(t, g2g.MValue{Name: "count", V: "3"}, got)
+			assert.Equal(t, expvars.MValue{Name: "count", V: "3"}, got)
 		case "rate":
-			assert.Equal(t, g2g.MValue{Name: "rate", V: g2g.RoundFloat(wantRate)}, got)
+			assert.Equal(t, expvars.MValue{Name: "rate", V: expvars.RoundFloat(wantRate)}, got)
 		default:
 			t.Errorf("unexpected metric: %s", got.Name)
 		}

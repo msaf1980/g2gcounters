@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"sync/atomic"
 
-	"github.com/msaf1980/g2g"
+	"github.com/msaf1980/g2g/pkg/expvars"
 )
 
 // Int is a 64-bit integer variable that satisfies the Var interface.
@@ -14,7 +14,7 @@ type Counter struct {
 
 func NewCounter(name string) *Counter {
 	v := new(Counter)
-	g2g.Publish(name, v)
+	expvars.Publish(name, v)
 	return v
 }
 
