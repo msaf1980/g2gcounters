@@ -1,4 +1,4 @@
-# g2g
+# g2gcounters
 
 Get to Graphite: counter/timer expvars for https://github.com/msaf1980/g2g
 
@@ -16,8 +16,8 @@ Counter/Timer use
 
 ```go
 var (
-    loadedRecords = g2gcounter.NewCounter("loaded_records")
-    loadedTime = g2g.NewTimer("loaded_time")
+    loadedRecords = g2gcounters.NewCounter("loaded_records")
+    loadedTime = g2gcounters.NewTimer("loaded_time")
 )
 
 func LoadThemAll() {
