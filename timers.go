@@ -15,7 +15,8 @@ type Timer struct {
 
 	last int64
 
-	lock sync.Mutex
+	skipEmpty bool
+	lock      sync.Mutex
 }
 
 func NewTimer(name string) *Timer {
@@ -23,6 +24,13 @@ func NewTimer(name string) *Timer {
 	t.last = time.Now().UnixNano()
 
 	expvars.MPublish(name, t)
+
+	return t
+}
+
+func NewETimer(name string) *Timer {
+	t := new(Timer)
+	t.skipEmpty = true
 
 	return t
 }
@@ -54,16 +62,20 @@ func (t *Timer) Strings() []expvars.MValue {
 	t.lock.Unlock()
 
 	if n == 0 {
-		return []expvars.MValue{
-			{Name: ".count", V: "0"},
-			{Name: ".min", V: "0"},
-			{Name: ".max", V: "0"},
-			{Name: ".median", V: "0"},
-			{Name: ".p90", V: "0"},
-			{Name: ".p95", V: "0"},
-			{Name: ".p99", V: "0"},
-			{Name: ".sum", V: "0"},
-			{Name: ".rate", V: "0"},
+		if t.skipEmpty {
+			return []expvars.MValue{}
+		} else {
+			return []expvars.MValue{
+				{Name: ".count", V: "0"},
+				{Name: ".min", V: "0"},
+				{Name: ".max", V: "0"},
+				{Name: ".median", V: "0"},
+				{Name: ".p90", V: "0"},
+				{Name: ".p95", V: "0"},
+				{Name: ".p99", V: "0"},
+				{Name: ".sum", V: "0"},
+				{Name: ".rate", V: "0"},
+			}
 		}
 	} else {
 		sort.Float64s(vals)
