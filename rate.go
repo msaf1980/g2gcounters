@@ -7,7 +7,7 @@ import (
 	"github.com/msaf1980/g2g/pkg/expvars"
 )
 
-// Int is a 64-bit integer variable that satisfies the Var interface.
+// Rate is a rate variable that satisfies the Var interface (reset on get value).
 type Rate struct {
 	i    int64
 	last int64

@@ -9,7 +9,7 @@ import (
 	"github.com/msaf1980/g2g/pkg/expvars"
 )
 
-// Int is a 64-bit integer variable that satisfies the Var interface.
+// Timer is a in-memry aggregated timer (like StatsD)
 type Timer struct {
 	vals []float64
 
