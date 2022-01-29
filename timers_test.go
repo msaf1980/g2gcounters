@@ -30,25 +30,24 @@ func TestTimer(t *testing.T) {
 
 	for _, got := range results {
 		switch got.Name {
-		case "min":
-			assert.Equal(t, expvars.MValue{Name: "min", V: "1"}, got)
-
-		case "max":
-			assert.Equal(t, expvars.MValue{Name: "max", V: "3"}, got)
-		case "median":
-			assert.Equal(t, expvars.MValue{Name: "median", V: "1.5"}, got)
-		case "p90":
-			assert.Equal(t, expvars.MValue{Name: "p90", V: "2.5"}, got)
-		case "p95":
-			assert.Equal(t, expvars.MValue{Name: "p95", V: "2.5"}, got)
-		case "p99":
-			assert.Equal(t, expvars.MValue{Name: "p99", V: "2.5"}, got)
-		case "sum":
-			assert.Equal(t, expvars.MValue{Name: "sum", V: "6"}, got)
-		case "count":
-			assert.Equal(t, expvars.MValue{Name: "count", V: "3"}, got)
-		case "rate":
-			assert.Equal(t, expvars.MValue{Name: "rate", V: expvars.RoundFloat(wantRate)}, got)
+		case ".min":
+			assert.Equal(t, expvars.MValue{Name: ".min", V: "1"}, got)
+		case ".max":
+			assert.Equal(t, expvars.MValue{Name: ".max", V: "3"}, got)
+		case ".median":
+			assert.Equal(t, expvars.MValue{Name: ".median", V: "1.5"}, got)
+		case ".p90":
+			assert.Equal(t, expvars.MValue{Name: ".p90", V: "2.5"}, got)
+		case ".p95":
+			assert.Equal(t, expvars.MValue{Name: ".p95", V: "2.5"}, got)
+		case ".p99":
+			assert.Equal(t, expvars.MValue{Name: ".p99", V: "2.5"}, got)
+		case ".sum":
+			assert.Equal(t, expvars.MValue{Name: ".sum", V: "6"}, got)
+		case ".count":
+			assert.Equal(t, expvars.MValue{Name: ".count", V: "3"}, got)
+		case ".rate":
+			assert.Equal(t, expvars.MValue{Name: ".rate", V: expvars.RoundFloat(wantRate)}, got)
 		default:
 			t.Errorf("unexpected metric: %s", got.Name)
 		}

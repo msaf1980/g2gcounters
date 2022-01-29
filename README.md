@@ -17,7 +17,8 @@ Counter/Rate/Timer use
 ```go
 var (
     loadedRecords = g2gcounters.NewCounter("loaded_records")
-    loadedRate = g2gcounters.NewRate("loaded_rate")
+    loadedRate = g2gcounters.NewRate("loaded.rate")
+    loadedERate = g2gcounters.NewRate("loaded_nonemty") // .rate is appended to metric name
     loadedTime = g2gcounters.NewTimer("loaded_time")
 )
 
@@ -27,6 +28,7 @@ func LoadThemAll() {
         t := load(x)
         loadedTime.Add(t)
         loadedRate.Incr()
+        loadedERate.Incr()
     }
     loadedRecords.Add(int64(len(a)))
 }
@@ -44,6 +46,7 @@ func main() {
     g := g2g.NewGraphiteBatch("graphite-server:2003", interval, timeout, 4096)
     g.Register("foo.service.records.loaded", loadedRecords)
     g.Register("foo.service.records.loaded.rate", loadedRate)
+    g.MRegister("foo.service.records.loaded_empty", loadedERate)
     g.MRegister("foo.service.records.load_time", loadedTime)
 
     // ...

@@ -55,15 +55,15 @@ func (t *Timer) Strings() []expvars.MValue {
 
 	if n == 0 {
 		return []expvars.MValue{
-			{Name: "count", V: "0"},
-			{Name: "min", V: "0"},
-			{Name: "max", V: "0"},
-			{Name: "median", V: "0"},
-			{Name: "p90", V: "0"},
-			{Name: "p95", V: "0"},
-			{Name: "p99", V: "0"},
-			{Name: "sum", V: "0"},
-			{Name: "rate", V: "0"},
+			{Name: ".count", V: "0"},
+			{Name: ".min", V: "0"},
+			{Name: ".max", V: "0"},
+			{Name: ".median", V: "0"},
+			{Name: ".p90", V: "0"},
+			{Name: ".p95", V: "0"},
+			{Name: ".p99", V: "0"},
+			{Name: ".sum", V: "0"},
+			{Name: ".rate", V: "0"},
 		}
 	} else {
 		sort.Float64s(vals)
@@ -80,15 +80,15 @@ func (t *Timer) Strings() []expvars.MValue {
 		p99, _ := Percentile(vals, 0.99)
 
 		return []expvars.MValue{
-			{Name: "count", V: strconv.FormatInt(count, 10)},
-			{Name: "min", V: expvars.RoundFloat(vals[0])},
-			{Name: "max", V: expvars.RoundFloat(vals[len(vals)-1])},
-			{Name: "median", V: expvars.RoundFloat(median)},
-			{Name: "p90", V: expvars.RoundFloat(p90)},
-			{Name: "p95", V: expvars.RoundFloat(p95)},
-			{Name: "p99", V: expvars.RoundFloat(p99)},
-			{Name: "sum", V: expvars.RoundFloat(sum)},
-			{Name: "rate", V: expvars.RoundFloat(rate)},
+			{Name: ".count", V: strconv.FormatInt(count, 10)},
+			{Name: ".min", V: expvars.RoundFloat(vals[0])},
+			{Name: ".max", V: expvars.RoundFloat(vals[len(vals)-1])},
+			{Name: ".median", V: expvars.RoundFloat(median)},
+			{Name: ".p90", V: expvars.RoundFloat(p90)},
+			{Name: ".p95", V: expvars.RoundFloat(p95)},
+			{Name: ".p99", V: expvars.RoundFloat(p99)},
+			{Name: ".sum", V: expvars.RoundFloat(sum)},
+			{Name: ".rate", V: expvars.RoundFloat(rate)},
 		}
 	}
 }

@@ -28,7 +28,7 @@ func TestERate(t *testing.T) {
 
 	wantRate := expvars.RoundFloat(float64(SumInt64(inputs)) * (1000000000.0 / float64(last-prev)))
 
-	assert.Equal(t, []expvars.MValue{{Name: "rate", V: wantRate}}, got)
+	assert.Equal(t, []expvars.MValue{{Name: ".rate", V: wantRate}}, got)
 
 	assert.Equal(t, []expvars.MValue{}, r.Strings())
 }
