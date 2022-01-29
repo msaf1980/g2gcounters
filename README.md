@@ -12,11 +12,12 @@ statistics to a Statsd server.
 
 # Usage
 
-Counter/Timer use
+Counter/Rate/Timer use
 
 ```go
 var (
     loadedRecords = g2gcounters.NewCounter("loaded_records")
+    loadedRate = g2gcounters.NewRate("loaded_rate")
     loadedTime = g2gcounters.NewTimer("loaded_time")
 )
 
@@ -25,6 +26,7 @@ func LoadThemAll() {
     for _, x := range a {
         t := load(x)
         loadedTime.Add(t)
+        loadedRate.Incr()
     }
     loadedRecords.Add(int64(len(a)))
 }
@@ -41,6 +43,7 @@ func main() {
     timeout := 3 * time.Second
     g := g2g.NewGraphiteBatch("graphite-server:2003", interval, timeout, 4096)
     g.Register("foo.service.records.loaded", loadedRecords)
+    g.Register("foo.service.records.loaded.rate", loadedRate)
     g.MRegister("foo.service.records.load_time", loadedTime)
 
     // ...

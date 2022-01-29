@@ -10,7 +10,17 @@ var (
 	ErrBounds     = errors.New("Input is outside of range")
 )
 
-func Sum(input []float64) float64 {
+func SumInt64(input []int64) int64 {
+	var sum int64
+
+	for _, v := range input {
+		sum += v
+	}
+
+	return sum
+}
+
+func SumFloat64(input []float64) float64 {
 	var sum float64
 
 	for _, v := range input {

@@ -73,7 +73,7 @@ func (t *Timer) Strings() []expvars.MValue {
 		durations := now - prev
 		rate := float64(count) * (1000000000.0 / float64(durations))
 
-		sum := Sum(vals)
+		sum := SumFloat64(vals)
 		median, _ := Percentile(vals, 0.5)
 		p90, _ := Percentile(vals, 0.9)
 		p95, _ := Percentile(vals, 0.95)
