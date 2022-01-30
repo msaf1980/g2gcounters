@@ -28,7 +28,7 @@ func (v *ECounter) Strings() []expvars.MValue {
 		return []expvars.MValue{}
 	}
 	return []expvars.MValue{
-		{Name: ".rate", V: strconv.FormatInt(n, 10)},
+		{Name: ".count", V: strconv.FormatInt(n, 10)},
 	}
 }
 
