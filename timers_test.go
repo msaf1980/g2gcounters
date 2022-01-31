@@ -1,6 +1,8 @@
 package g2gcounters
 
 import (
+	"fmt"
+	"sync"
 	"testing"
 	"time"
 
@@ -51,5 +53,45 @@ func TestTimer(t *testing.T) {
 		default:
 			t.Errorf("unexpected metric: %s", got.Name)
 		}
+	}
+}
+
+func BenchmarkTimer(b *testing.B) {
+	concurrencyLevels := []int{5, 10, 20, 50}
+	timer := NewTimer("test timer")
+	for _, clients := range concurrencyLevels {
+
+		b.Run(fmt.Sprintf("%d_clients", clients), func(b *testing.B) {
+			sem := make(chan struct{}, clients)
+			wg := sync.WaitGroup{}
+
+			for i := 0; i < clients; i++ {
+				wg.Add(1)
+				go func() {
+					<-sem
+					// Test routine
+					for n := 0; n < b.N; n++ {
+						timer.Add(1)
+					}
+					// End test routine
+					wg.Done()
+				}()
+
+			}
+
+			ticker := time.NewTicker(10 * time.Millisecond)
+			go func() {
+				// Test routine
+				for _ = range ticker.C {
+					vals := timer.Strings()
+					_ = vals
+				}
+				// End test routine
+			}()
+
+			close(sem)
+			wg.Wait()
+			ticker.Stop()
+		})
 	}
 }
