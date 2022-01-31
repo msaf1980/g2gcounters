@@ -40,7 +40,7 @@ func (v *ERate) Strings() []expvars.MValue {
 		return []expvars.MValue{}
 	} else {
 		return []expvars.MValue{
-			{Name: ".rate", V: expvars.RoundFloat(r)},
+			{Name: "", V: expvars.RoundFloat(r)},
 		}
 	}
 }
